@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="主分支千里眼投影分类报价可视化看板" />
+    <title>主分支千里眼 · 报价分析</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand__mark" aria-hidden="true">C</span>
+          <div>
+            <strong>CcY Analytics</strong>
+            <small>报价决策中心</small>
+          </div>
+        </div>
+        <nav class="nav" aria-label="页面导航">
+          <a class="nav__item nav__item--active" href="#overview">经营概览</a>
+          <a class="nav__item" href="#analysis">结构分析</a>
+          <a class="nav__item" href="#details">报价明细</a>
+        </nav>
+        <div class="sidebar__meta">
+          <span>数据日期</span>
+          <strong>2026.03.23</strong>
+          <small>来源：投影按材质分类报价</small>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">PROJECT QUOTATION</p>
+            <h1>主分支千里眼</h1>
+            <p class="subtitle">投影按材质分类报价 · 动态经营视图</p>
+          </div>
+          <div class="topbar__actions">
+            <span class="status"><i></i> 数据已同步</span>
+            <button id="exportButton" class="button" type="button">导出当前视图</button>
+          </div>
+        </header>
+
+        <section id="overview" class="section" aria-labelledby="overviewTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">EXECUTIVE SUMMARY</p>
+              <h2 id="overviewTitle">经营概览</h2>
+            </div>
+            <div class="project-tags">
+              <span>工厂单号 260106-32</span>
+              <span>测量日期 2026-01-05</span>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <article class="kpi-card kpi-card--primary">
+              <span>报价合计</span>
+              <strong id="totalAmount">¥0</strong>
+              <small>当前已计价金额</small>
+            </article>
+            <article class="kpi-card">
+              <span>投影面积</span>
+              <strong>35.60<em>㎡</em></strong>
+              <small>7 个柜体单元</small>
+            </article>
+            <article class="kpi-card">
+              <span>柜门面积</span>
+              <strong>12.24<em>㎡</em></strong>
+              <small>板式门 7.02㎡ / 玻璃门 5.22㎡</small>
+            </article>
+            <article class="kpi-card">
+              <span>明细项目</span>
+              <strong id="itemCount">0<em>项</em></strong>
+              <small>柜体、五金、柜门三大类</small>
+            </article>
+          </div>
+        </section>
+
+        <section id="analysis" class="section" aria-labelledby="analysisTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">COST & QUANTITY</p>
+              <h2 id="analysisTitle">结构分析</h2>
+            </div>
+            <div class="segmented" role="group" aria-label="分析维度">
+              <button class="segmented__button segmented__button--active" data-metric="quantity" type="button">计价总量</button>
+              <button class="segmented__button" data-metric="amount" type="button">报价金额</button>
+            </div>
+          </div>
+
+          <div class="analysis-grid">
+            <article class="panel panel--chart">
+              <div class="panel__heading">
+                <div><span>分类结构</span><strong id="chartTitle">计价总量分布</strong></div>
+                <span class="panel__hint">按业务类别汇总</span>
+              </div>
+              <div id="categoryChart" class="bar-chart" aria-label="分类数据条形图"></div>
+            </article>
+
+            <article class="panel insight-card">
+              <div class="panel__heading">
+                <div><span>经营洞察</span><strong>价格完整度</strong></div>
+                <span class="panel__hint">自动诊断</span>
+              </div>
+              <div class="completion-ring" aria-label="价格完整度 7%">
+                <svg viewBox="0 0 120 120" role="img">
+                  <circle class="completion-ring__track" cx="60" cy="60" r="48" />
+                  <circle class="completion-ring__value" cx="60" cy="60" r="48" />
+                </svg>
+                <div><strong>7%</strong><span>已计价</span></div>
+              </div>
+              <div class="insight-card__note">
+                <i aria-hidden="true">!</i>
+                <p><strong>13 项单价待完善</strong><span>目前仅“普通拉手”产生金额，建议补全柜体与柜门单价后再确认总报价。</span></p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="details" class="section" aria-labelledby="detailsTitle">
+          <div class="section-heading section-heading--table">
+            <div>
+              <p class="eyebrow">QUOTATION DETAILS</p>
+              <h2 id="detailsTitle">报价明细</h2>
+            </div>
+            <div class="filters">
+              <label class="search"><span class="sr-only">搜索明细</span><input id="searchInput" type="search" placeholder="搜索名称、材质或规格" /></label>
+              <label><span class="sr-only">筛选类别</span><select id="categoryFilter"><option value="all">全部类别</option></select></label>
+            </div>
+          </div>
+          <div class="table-panel">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>类别</th><th>名称 / 规格</th><th>材质 / 颜色</th><th>数量</th><th>计价总量</th><th>单价</th><th>金额</th></tr></thead>
+                <tbody id="detailBody"></tbody>
+              </table>
+            </div>
+            <footer class="table-footer"><span id="resultCount">共 0 条</span><span>金额单位：人民币（CNY）</span></footer>
+          </div>
+        </section>
+
+        <footer class="footer">CcY 报价决策中心 · 本页面基于原始 Excel 数据生成</footer>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
